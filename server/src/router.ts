@@ -8,16 +8,31 @@ const router = express.Router();
 
 // Define item-related routes
 import itemActions from "./modules/item/itemActions";
-import sayActions from "./modules/say/sayActions";
+
+router.get("/items", itemActions.browse);
+router.get("/items/:id", itemActions.read);
+router.post("/items", itemActions.add);
+
+// Define program-related routes
 import programActions from "./modules/program/programActions";
 
-router.get("/api/items", itemActions.browse);
-router.get("/api/items/:id", itemActions.read);
-router.post("/api/items", itemActions.add);
+router.get("/programs", programActions.browse);
+router.get("/programs/:id", programActions.read);
+
+/* ************************************************************************* */
+
+// Declaration of a "Welcome" route
+
+import sayActions from "./modules/say/sayActions";
 
 router.get("/", sayActions.sayWelcome);
 
-router.get("/api/programs", programActions.browse);
+// Declaration of a category route
+
+import categoryActions from "./modules/category/categoryActions";
+
+router.get("/categories", categoryActions.browse);
+router.get("/categories/:id", categoryActions.read);
 
 /* ************************************************************************* */
 
