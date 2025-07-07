@@ -22,17 +22,12 @@ const programs = [
 ];
 
 import type { RequestHandler } from "express";
+import programRepository from "./programRepository";
 
-const browse: RequestHandler = (req, res) => {
-  if (req.query.q != null) {
-    const filteredPrograms = programs.filter((program) =>
-      program.synopsis.includes(req.query.q as string),
-    );
+const browse: RequestHandler = async (req, res) => {
+  const programsFromDB = await programRepository.readAll();
 
-    res.json(filteredPrograms);
-  } else {
-    res.json(programs);
-  }
+  res.json(programsFromDB);
 };
 
 const read: RequestHandler = (req, res) => {
